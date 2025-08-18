@@ -1,0 +1,18 @@
+body, head {
+    background-color: #101010;
+    color: azure;
+}
+
+textarea {
+    width: 100vw;
+    height: 80vh;
+    white-space: pre-wrap   
+}
+
+.editor {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}

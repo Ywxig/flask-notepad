@@ -1,0 +1,43 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+<h2>Музыкальный плеер</h2>
+
+<audio id="player" controls></audio>
+
+<ul id="trackList">
+    {% for track in tracks %}
+    <li data-src="{{ url_for('static', filename='music_lib/' + track) }}">{{ track }}</li>
+    {% endfor %}
+</ul>
+
+<script>
+const player = document.getElementById('player');
+const tracks = Array.from(document.querySelectorAll('#trackList li'));
+let current = 0;
+
+function playTrack(index) {
+    if(index >= tracks.length) return;
+    const src = tracks[index].dataset.src;
+    player.src = src;
+    player.play();
+    current = index;
+}
+
+// when music overed, play next music
+player.addEventListener('ended', () => {
+    if(current + 1 < tracks.length){
+        playTrack(current + 1);
+    }
+});
+
+// click for choice music
+tracks.forEach((li, i) => {
+    li.addEventListener('click', () => playTrack(i));
+});
+
+// start with First trek
+playTrack(0);
+</script>
+{% endblock %}

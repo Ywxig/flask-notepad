@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<h1>Menu for files</h1>
+<a href="/docs/edit"><button>Create</button></a>
+{% for filename in files %}
+
+<form action="/docs" method="post">
+    <div class="file">
+        <b>{{ filename }}</b>
+
+        <button name="file-control" value="{{ filename }}|view" type="submit">View</button>
+        <button name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
+
+    </div>
+</form>
+{% endfor %}
+{% endblock %}
