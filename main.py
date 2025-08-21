@@ -1,11 +1,14 @@
 import logging
 from flask import Flask, request, render_template
 import os
-
+import json
 import utils
+import markdown
 
 app = Flask(__name__, static_folder='static')
 
+CONFIG = open("config.json", "r").read()
+ABOUT = json.loads(CONFIG)
 MUSIC_FOLDER = os.path.join('static', 'music_lib')
 DOCUMENTS_FOLDER = os.path.join("documents")
 
@@ -36,7 +39,8 @@ def docs():
         if action == "view":
             text = utils.File.read(filename=filename,
                                    doc_folder=DOCUMENTS_FOLDER)
-            return render_template("view.html", filename=filename, text=text)
+            mk = markdown.markdown(text)
+            return render_template("view.html", filename=filename, text=mk)
         else:
             text = utils.File.read(filename=filename,
                                    doc_folder=DOCUMENTS_FOLDER)
@@ -59,9 +63,9 @@ def edit():
             ctx = text.replace("\r", ""),
             doc_folder = DOCUMENTS_FOLDER)
         
-        return render_template("view.html", filename=title, text=text)
+        return render_template("view.html", filename=title, text=markdown.markdown(text))
 
-    return render_template("editor.html", filename="Новый фаил.txt", text="")
+    return render_template("editor.html", filename="New file.txt", text="")
 
 @app.route("/music")
 def music():

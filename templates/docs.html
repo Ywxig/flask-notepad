@@ -8,10 +8,10 @@
 <form action="/docs" method="post">
     <div class="file">
         <b>{{ filename }}</b>
-
-        <button name="file-control" value="{{ filename }}|view" type="submit">View</button>
-        <button name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
-
+        <div class="file-conteiner">
+            <button class="file-button" name="file-control" value="{{ filename }}|view" type="submit">View</button>
+            <button class="file-button" name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
+        </div>
     </div>
 </form>
 {% endfor %}

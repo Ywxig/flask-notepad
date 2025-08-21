@@ -1,18 +1,73 @@
+:root {
+    --font-color: azure;
+    --background-color: #101010;
+    --font-family: Arial, Helvetica, sans-serif;
+}
+
 body, head {
-    background-color: #101010;
-    color: azure;
+    background-color: var(--background-color);
+    color: var(--font-color);
+    font-family: var(--font-family); 
+}
+
+h1, h2, h3 {
+    color: var(--font-color);
+}
+
+#filename {
+    color: var(--font-color);
+    font-size: 36px;
+    margin: 10px;
+    background-color: black;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);;
+}
+
+input {
+    padding-left: 10px;
+}
+
+#input-filename {
+    border: 1px;
+    border-radius: 5px;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 textarea {
-    width: 100vw;
+    width: 99vw;
     height: 80vh;
-    white-space: pre-wrap   
+    white-space: pre-wrap;
+    font-size: 14px;
+    border: 1px;
+    border-radius: 15px;
+    padding: 5px; 
 }
 
 .editor {
-    width: 100vw;
+    margin: 5px;
+    width: 99vw;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
+}
+
+.file{
+    border: 1px solid;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.file-conteiner {
+    display: flex;
+    justify-content: right;
+}
+
+.file-button {
+    border-radius: 5px;
+    font-size: 16px;
+    align-self: right;
+    place-self: right;
 }

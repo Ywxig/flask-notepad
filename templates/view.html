@@ -2,12 +2,13 @@
 {% block content %}
 
 
-<b> {{ filename }} </b>
+<div id="filename"> {{ filename }} </div>
 <br>
 <div class="text">
-        <pre>{{ text }}</pre>
+        {{ text|safe }}
 </div>
 <a href="/docs"><button>Back to list</button></a>
+<button name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
 
 
 {% endblock %}
