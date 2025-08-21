@@ -1,18 +1,23 @@
 {% extends 'main.html' %}
 {% block content %}
 
-<h1>Menu for files</h1>
-<a href="/docs/edit"><button>Create</button></a>
-{% for filename in files %}
+<h2>Documents</h2>
 
-<form action="/docs" method="post">
-    <div class="file">
-        <b>{{ filename }}</b>
-        <div class="file-conteiner">
-            <button class="file-button" name="file-control" value="{{ filename }}|view" type="submit">View</button>
-            <button class="file-button" name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
-        </div>
+<div class="files">
+    <div class="new-file-button">
+        <a href="/docs/edit" align="right"><button class="new-file">New file</button></a>
     </div>
-</form>
-{% endfor %}
+    {% for filename in files %}
+
+    <form action="/docs" method="post">
+        <div class="file">
+            <b>{{ filename }}</b>
+            <div class="file-conteiner">
+                <button class="file-button" name="file-control" value="{{ filename }}|view" type="submit">View</button>
+                <button class="file-button" name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
+            </div>
+        </div>
+    </form>
+    {% endfor %}
+</div>
 {% endblock %}

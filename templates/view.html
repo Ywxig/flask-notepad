@@ -1,14 +1,14 @@
 {% extends 'main.html' %}
 {% block content %}
 
+<div class="file">
+        <div id="filename"> {{ filename }} </div>
 
-<div id="filename"> {{ filename }} </div>
-<br>
-<div class="text">
-        {{ text|safe }}
+        <div class="text">
+                {{ text|safe }}
+        </div>
 </div>
-<a href="/docs"><button>Back to list</button></a>
-<button name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
+<a href="/docs"><button class="continue">Continue</button></a>
 
 
 {% endblock %}

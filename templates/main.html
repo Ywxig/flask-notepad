@@ -4,19 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/side_menu.css') }}"><!--This CSS for side menu-->
     <title>{{ title }}</title>
 </head>
 <body>
-    <header>
-        <a href="/">Home</a>
-        <a href="/music">Music</a>
-        <a href="/docs">Documents</a>
-    </header>
 
+    <div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    <a href="/">Home</a>
+    <a href="/music">Music</a>
+    <a href="/docs">Documents</a>
+
+    <a href="https://github.com/Ywxig"><img align="left" class="dev" width="50px" height="50px" src="https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg"></a>
+    </div>
+
+    <header>
+        <button class="openbtn" onclick="openNav()"><b>Menu</b></button>
+    </header>
 
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    <script>
+    function openNav() {
+      document.getElementById("mySidebar").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidebar").style.width = "0";
+    }
+    </script>
 
 </body>
 </html>

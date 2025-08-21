@@ -7,8 +7,7 @@ import markdown
 
 app = Flask(__name__, static_folder='static')
 
-CONFIG = open("config.json", "r").read()
-ABOUT = json.loads(CONFIG)
+
 MUSIC_FOLDER = os.path.join('static', 'music_lib')
 DOCUMENTS_FOLDER = os.path.join("documents")
 
@@ -17,7 +16,9 @@ app.logger.setLevel(logging.ERROR)
 
 @app.route("/")
 def main():
-    return render_template("index.html")
+    CONFIG = open("config.json", "r").read()
+    ABOUT = json.loads(CONFIG)
+    return render_template("index.html", name_app=ABOUT["name"], version=ABOUT["version"], title=ABOUT["name"])
 
 @app.route("/docs", methods=['GET', 'POST'])
 def docs():
@@ -39,14 +40,13 @@ def docs():
         if action == "view":
             text = utils.File.read(filename=filename,
                                    doc_folder=DOCUMENTS_FOLDER)
-            mk = markdown.markdown(text)
-            return render_template("view.html", filename=filename, text=mk)
+            return render_template("view.html", filename=filename, text=markdown.markdown(text), title=f"View - {filename}")
         else:
             text = utils.File.read(filename=filename,
                                    doc_folder=DOCUMENTS_FOLDER)
-            return render_template("editor.html", filename=filename, text=text)        
+            return render_template("editor.html", filename=filename, text=text, title=f"Edit - {filename}")        
 
-    return render_template("docs.html", files=files)
+    return render_template("docs.html", files=files, title="Documents")
 
 
 
@@ -57,15 +57,18 @@ def edit():
     if request.method == 'POST':
         text = request.form['text']
         title = request.form['title']
-        
-        utils.File.write(
-            filename = title,
-            ctx = text.replace("\r", ""),
-            doc_folder = DOCUMENTS_FOLDER)
-        
-        return render_template("view.html", filename=title, text=markdown.markdown(text))
+        button = request.form['button']
+        if button == "save":
+            utils.File.write(
+                filename = title,
+                ctx = text.replace("\r", ""),
+                doc_folder = DOCUMENTS_FOLDER)
 
-    return render_template("editor.html", filename="New file.txt", text="")
+            return render_template("view.html", filename=title, text=markdown.markdown(text), title=f"View - {title}")
+        else:
+            return render_template("editor.html", filename=title, text=text, title=f"Edit - {title}")
+
+    return render_template("editor.html", filename="New file.txt", text="# New file", title=f"Edit - New file.txt")
 
 @app.route("/music")
 def music():
@@ -80,7 +83,7 @@ def music():
 
     tracks = filtered
 
-    return render_template('music.html', tracks=tracks)
+    return render_template('music.html', tracks=tracks, title=f"Music")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
