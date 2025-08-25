@@ -1,25 +1,12 @@
 {% extends 'main.html' %}
 {% block content %}
-<div >
-    <form action="/docs/edit" method="POST" class="editor">
-        <input id="input-filename" name="title" type="text" value="{{ filename }}"><br>
-        <textarea class="ui-editor" name="text" id="textarea" style="width:100%; height:300px;">{{ text }}</textarea>
 
-
-        <button type="submit" name="button" value="save" class="save-button">Save</button>
-    </form>
+<div id="filename" contenteditable="true">{{ filename }}</div>
+<div id="editor" contenteditable="true">
+    {{ text|safe }}
 </div>
-<br>
-<div class="keyboard">
-    <button onclick="insert(prefix=false, ctx='# ')" name="button" value="h1">h1</button>
-    <button onclick="insert(prefix=false, ctx='## ')" name="button" value="h2">h2</button>
-    <button onclick="insert(prefix=false, ctx='### ')" name="button" value="h3">h3</button>
-    <button onclick="insert(prefix=false, ctx='**')" name="button" value="blockquote ">italic</button>
-    <button onclick="insert(prefix=true, ctx='---\n\n')" name="button" value="blockquote ">hr</button>
-    <button onclick="insert(prefix=false, ctx='> ')" name="button" value="blockquote ">blockquote</button>
-    
-    
-</div>
+<a href="/docs"><button id="send" onclick="sendText()">Save</button></a>
+<button id="view" onclick="showViewPage()">View</button>
 
 <script src="{{ url_for('static', filename='js/editor.js') }}"></script>
     

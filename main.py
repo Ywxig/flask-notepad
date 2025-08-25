@@ -1,9 +1,9 @@
 import logging
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
 import os
 import json
 import utils
-import markdown
+
 
 app = Flask(__name__, static_folder='static')
 
@@ -29,6 +29,7 @@ def docs():
     filtered = []
     for file in files:
         if file.endswith(('.txt')):
+            utils.File.file_architecture_check(filename=file, doc_folder=DOCUMENTS_FOLDER)
             filtered.append(file)
 
     files = filtered
@@ -38,13 +39,32 @@ def docs():
         filename = button.split("|")[0]
         action = button.split("|")[1]
         if action == "view":
-            text = utils.File.read(filename=filename,
-                                   doc_folder=DOCUMENTS_FOLDER)
-            return render_template("view.html", filename=filename, text=markdown.markdown(text), title=f"View - {filename}")
-        else:
-            text = utils.File.read(filename=filename,
-                                   doc_folder=DOCUMENTS_FOLDER)
-            return render_template("editor.html", filename=filename, text=text, title=f"Edit - {filename}")        
+            text = utils.File.read( filename=filename,
+                                    doc_folder=DOCUMENTS_FOLDER,
+                                    type= "markdown")
+            
+            return render_template("view.html", filename=filename, text=text, title=f"View - {filename}")
+        if action == "edit":
+            text = utils.File.read( filename=filename,
+                                    doc_folder=DOCUMENTS_FOLDER,
+                                    type= "text")
+            
+            return render_template("editor.html", filename=filename, text=text, title=f"Edit - {filename}")      
+
+        if action == "del":
+            os.remove(f"{DOCUMENTS_FOLDER}/{filename}")
+
+            files = os.listdir(DOCUMENTS_FOLDER)
+        
+            filtered = []
+            for file in files:
+                if file.endswith(('.txt')):
+                    utils.File.file_architecture_check(filename=file, doc_folder=DOCUMENTS_FOLDER)
+                    filtered.append(file)
+        
+            files = filtered
+
+            return render_template("docs.html", files=files, title="Documents")
 
     return render_template("docs.html", files=files, title="Documents")
 
@@ -52,23 +72,37 @@ def docs():
 
 @app.route("/docs/edit", methods=['GET', 'POST'])
 def edit():
-    #This function for use server as data storage with online connect
-
     if request.method == 'POST':
-        text = request.form['text']
-        title = request.form['title']
-        button = request.form['button']
-        if button == "save":
-            utils.File.write(
-                filename = title,
-                ctx = text.replace("\r", ""),
-                doc_folder = DOCUMENTS_FOLDER)
+        # Пытаемся взять JSON
+        data = request.get_json(silent=True)
+        
+        if data["action"] == "markdown-save":  # if we need to save file 
+            text = data.get('text', '') # get content
+            filename = data.get('filename', '')# get filename
+            utils.File.write( # write data in file
+                filename = filename,
+                ctx = text.replace("    ", ""),
+                doc_folder = DOCUMENTS_FOLDER,
+                type="markdown")
+            return render_template("editor.html", filename=filename, text=text, title=f"Edit - {filename}")  
+        
+        elif data["action"] == "markdown-view": # if we need to view file 
+            text = data.get('text', '') # get content
+            filename = data.get('filename', '') # get filename
 
-            return render_template("view.html", filename=title, text=markdown.markdown(text), title=f"View - {title}")
-        else:
-            return render_template("editor.html", filename=title, text=text, title=f"Edit - {title}")
+            utils.File.write( # write data in file
+                filename = filename,
+                ctx = text.replace("    ", ""),
+                doc_folder = DOCUMENTS_FOLDER,
+                type="markdown")
 
-    return render_template("editor.html", filename="New file.txt", text="# New file", title=f"Edit - New file.txt")
+            ctx = utils.File.read(filename=filename,
+                       doc_folder=DOCUMENTS_FOLDER,
+                       type= "markdown")
+            
+            return jsonify({"filename": filename, "text": ctx, "markdown": text}) # send data to show on page
+        
+    return render_template("editor.html", filename="New file.txt", text="# New file", title="Edit - New file.txt")
 
 @app.route("/music")
 def music():
@@ -82,8 +116,18 @@ def music():
             filtered.append(track)
 
     tracks = filtered
-
     return render_template('music.html', tracks=tracks, title=f"Music")
 
+
+@app.route("/console",  methods=['GET', 'POST'])
+def console():
+    if request.method == 'POST':
+        button = request.form['button']
+
+        if button == "shutdown":
+            os.system("shutdown")
+    return render_template('console.html',  title=f"Console")
+
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080)
+    app.run(host="0.0.0.0", port=8080, use_reloader=True)

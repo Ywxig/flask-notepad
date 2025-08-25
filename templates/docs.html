@@ -5,16 +5,17 @@
 
 <div class="files">
     <div class="new-file-button">
-        <a href="/docs/edit" align="right"><button class="new-file">New file</button></a>
+        <a href="/docs/edit" align="right"><button>New file</button></a>
     </div>
     {% for filename in files %}
 
     <form action="/docs" method="post">
         <div class="file">
             <b>{{ filename }}</b>
-            <div class="file-conteiner">
+            <div class="file-container">
                 <button class="file-button" name="file-control" value="{{ filename }}|view" type="submit">View</button>
                 <button class="file-button" name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
+                <button class="file-button" id="del" name="file-control" value="{{ filename }}|del" type="submit">Del</button>
             </div>
         </div>
     </form>

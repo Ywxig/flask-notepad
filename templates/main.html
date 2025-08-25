@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/side_menu.css') }}"><!--This CSS for side menu-->
     <title>{{ title }}</title>
@@ -14,6 +15,7 @@
     <a href="/">Home</a>
     <a href="/music">Music</a>
     <a href="/docs">Documents</a>
+    <a href="/console">Console</a>
 
     <a href="https://github.com/Ywxig"><img align="left" class="dev" width="50px" height="50px" src="https://upload.wikimedia.org/wikipedia/commons/c/c2/GitHub_Invertocat_Logo.svg"></a>
     </div>
@@ -22,7 +24,7 @@
         <button class="openbtn" onclick="openNav()"><b>Menu</b></button>
     </header>
 
-    <main>
+    <main id="main-block">
         {% block content %}{% endblock %}
     </main>
 

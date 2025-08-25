@@ -1,13 +1,27 @@
 :root {
-    --font-color: azure;
-    --background-color: #3a3a3a;
-    --font-family: Arial, Helvetica, sans-serif;
-}
+--font-color: azure;
+--background-color: #252525;
+--element-background-color: #3a3a3a;
+--border-color: #575757;
+--second-color: #40388d; /* акцент */
+--font-family: Arial, Helvetica, sans-serif;
 
+
+/* Доп. токены */
+--radius: 12px;
+--pad: 12px;
+--shadow-focus: 0 0 0 4px rgba(64, 56, 141, 0.25);
+--transition: 160ms ease;
+--placeholder: #b9b9b9;
+}
 body, head {
     background-color: var(--background-color);
     color: var(--font-color);
-    font-family: var(--font-family); 
+    font-family: var(--font-family);
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 h1, h2, h3 {
@@ -15,117 +29,95 @@ h1, h2, h3 {
 }
 
 button {
-    border: 0px;
-    border-radius: 5px;
-    font-size: 14px;
-    padding: 5px;
-    margin-left: 5px;
-}
-
-#filename {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
     color: var(--font-color);
-    font-size: 36px;
-    margin-bottom: 10px;
+    background: var(--primary-color);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background var(--transition-speed), transform var(--transition-speed), box-shadow var(--transition-speed);
+    margin-top: 10px;
 }
 
-input {
-    border: 0px;
-    padding-left: 0px;
+button:hover {
+    background-color: #444;
 }
 
-#input-filename {
-    font-size: 24px;
-    background-color: var(--background-color);
-    color: var(--font-color);
+#shutdown:hover {
+    background-color: red;
 }
 
-textarea {
-    min-height: 90%;
-    white-space: pre-wrap;
-    font-size: 14px;
-    border: 1px;
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    resize: none;
-    padding-left: 5px;
-    background-color: var(--background-color);
-    color: var(--font-color);
-    margin-bottom: 5px;
+header {
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-.save-button{
-    background-color: #05a100;
-    color: var(--font-color);
-    padding: 5px;
-    border-radius: 5px;
-    border: 0px solid;
-    margin-top: 5px;
-    font-size: 24px;
-
+main {
+    align-items: center;
+    justify-content: center;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    flex: 1; /* растягивает контент на оставшееся место */
 }
 
-.keyboard {
-    margin-top: 15px;
-    justify-content: flex-end;
-    margin-right: 5px;
-    margin-left: 0px;    
+.file {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-.editor {
-    min-height: 80vh;
-    height: 80vh;
-    justify-content: flex-end;
-    padding-right: 5px;
-}
-
-.new-file {
-    background-color: #05a100;
-    color: var(--font-color);
-    font-size: 14px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 0px solid;
-}
-
-.continue {
-    background-color: #05a100;
-    color: var(--font-color);
-    padding: 5px;
-    border-radius: 5px;
-    border: 0px solid;
-    font-size: 24px;
-    padding-left: 15px;
-    padding-right: 15px;
+.file-container {
+    display: flex;
+    justify-content: right;
 }
 
 .new-file-button {
     display: flex;
     justify-content: flex-end;
+}
+
+.new-file-button button, #send {
+    background-color: green;
     margin-bottom: 10px;
 }
 
-.files {
-    border: 0px solid;
-    border-radius: 10px;
-    padding: 5px;
+#editor {
+    min-height: 70vh;
+    justify-content: flex-end;
+    padding-right: 5px;
+    font-size: 14px;
+    border: 1px;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 5px;
+    background-color: var(--background-color);
+    color: var(--font-color);
+    margin-bottom: 5px;
+    white-space: pre-wrap;
 }
 
-.file{
-    border: 0px solid;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
 
-.file-conteiner {
-    display: flex;
-    justify-content: right;
-}
 
-.file-button {
-    align-self: right;
-    place-self: right;
+@media (max-width: 600px) {
+  main {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  #del {
+    display: none;
+  }
+
 }

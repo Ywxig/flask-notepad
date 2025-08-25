@@ -1,0 +1,56 @@
+.wrap {
+border-radius: var(--radius);
+padding: var(--pad) calc(var(--pad) + 2px);
+outline: none;
+transition: border-color var(--transition), box-shadow var(--transition), background-color var(--transition);
+}
+
+
+.field::placeholder {
+color: var(--placeholder);
+opacity: 0.85;
+}
+
+
+.field:focus {
+border-color: var(--second-color);
+box-shadow: var(--shadow-focus);
+}
+
+
+/* Состояния */
+.field:disabled,
+.field[readonly] {
+opacity: 0.7;
+cursor: not-allowed;
+}
+
+
+/* Поддержка простых валидационных стилей без JS */
+.field:invalid {
+border-color: #d3455b;
+box-shadow: 0 0 0 4px rgba(211, 69, 91, 0.2);
+}
+
+
+/* Textarea особенности */
+textarea.field {
+min-height: 120px;
+resize: vertical;
+line-height: 1.5;
+scrollbar-width: thin; /* Firefox */
+}
+textarea.field::-webkit-scrollbar { width: 8px; }
+textarea.field::-webkit-scrollbar-thumb { background: #6a6a6a; border-radius: 8px; }
+textarea.field::-webkit-scrollbar-track { background: transparent; }
+
+
+/* Компактный лейаут для демо */
+label {
+font-size: 12px;
+opacity: 0.8;
+margin-left: 6px;
+}
+
+
+.group { display: grid; gap: 6px; }
