@@ -42,6 +42,14 @@ class File():
         if type == "text":
             return JSON_file["content"]
         
+    def get_type_from_file(filename : str, doc_folder : str):
+        file = open(doc_folder + "/" +filename, "r", encoding="utf-8")
+        ctx = file.read()
+        file.close()
+
+        JSON_file = json.loads(ctx)
+        return JSON_file["type"]
+        
 
     def file_architecture_check(filename : str, doc_folder : str) -> None:
 
@@ -69,4 +77,3 @@ class File():
 
             print(f"[SUCCESS] `{filename}` File was migrated on JSON")
             return None
-

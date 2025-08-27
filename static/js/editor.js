@@ -1,7 +1,6 @@
 
-editor.addEventListener('keyup', () => {
-    console.log('Current text:', editor.innerHTML);
-});
+//const editor = document.getElementById('editor');
+//editor.addEventListener('keyup', () => {});
 
 function sendText(ctx) {
     let text
@@ -17,9 +16,6 @@ function sendText(ctx) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ filename: filename, text: text, action: "markdown-save" })
     })
-    //.then(r => r.json())
-    //.then(console.log)
-    //.catch(console.error);
 
 }
 

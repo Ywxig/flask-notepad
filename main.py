@@ -27,10 +27,16 @@ def docs():
     files = os.listdir(DOCUMENTS_FOLDER)
 
     filtered = []
+
     for file in files:
         if file.endswith(('.txt')):
             utils.File.file_architecture_check(filename=file, doc_folder=DOCUMENTS_FOLDER)
-            filtered.append(file)
+            
+
+            file_type = utils.File.get_type_from_file(filename=file,
+            doc_folder=DOCUMENTS_FOLDER)
+
+            filtered.append({"filename" : file, "type" : file_type})
 
     files = filtered
 
@@ -44,10 +50,13 @@ def docs():
                                     type= "markdown")
             
             return render_template("view.html", filename=filename, text=text, title=f"View - {filename}")
+        
         if action == "edit":
             text = utils.File.read( filename=filename,
                                     doc_folder=DOCUMENTS_FOLDER,
                                     type= "text")
+            
+
             
             return render_template("editor.html", filename=filename, text=text, title=f"Edit - {filename}")      
 
@@ -63,6 +72,7 @@ def docs():
                     filtered.append(file)
         
             files = filtered
+
 
             return render_template("docs.html", files=files, title="Documents")
 
@@ -130,4 +140,4 @@ def console():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, use_reloader=True)
+    app.run(host="0.0.0.0", port=80, use_reloader=True)

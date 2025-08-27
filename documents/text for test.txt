@@ -1,5 +1,1 @@
-# text
-
-just *simple* text file
-
-
+{"filename": "text for test.txt", "type": "text", "dir": "documents", "content": "# text\n\njust *simple* text file\n\n\n"}

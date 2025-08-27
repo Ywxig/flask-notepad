@@ -11,11 +11,12 @@
 
     <form action="/docs" method="post">
         <div class="file">
-            <b>{{ filename }}</b>
+            <b>{{ filename.filename }}</b>
+            <i align="right" class="type" id="{{ filename.type }}">{{ filename.type }}</i>
             <div class="file-container">
-                <button class="file-button" name="file-control" value="{{ filename }}|view" type="submit">View</button>
-                <button class="file-button" name="file-control" value="{{ filename }}|edit" type="submit">Edit</button>
-                <button class="file-button" id="del" name="file-control" value="{{ filename }}|del" type="submit">Del</button>
+                <button class="file-button" name="file-control" value="{{ filename.filename }}|view" type="submit">View</button>
+                <button class="file-button" name="file-control" value="{{ filename.filename }}|edit" type="submit">Edit</button>
+                <button class="file-button" id="del" name="file-control" value="{{ filename.filename }}|del" type="submit">Del</button>
             </div>
         </div>
     </form>

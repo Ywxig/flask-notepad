@@ -1,5 +1,34 @@
 {
-    "name" : "flask-notepad",
-    "language" : "en",
-    "version": "1.1"
+    "name": "flask-notepad",
+    "language": "en",
+    "version": "1.1",
+    "members": {
+        "192.168.100.24" : {
+            "username": "admin",
+            "role": "admin"
+        }
+    },
+    "roles": {
+        "admin": {
+            "/": "True",
+            "/docs": "True",
+            "/docs/edit": "True",
+            "/music": "True",
+            "/console": "True"
+        },
+        "user": {
+            "/": "True",
+            "/docs": "True",
+            "/docs/edit": "True",
+            "music": "False",
+            "/console": "False"
+        },
+        "guest": {
+            "/": "True",
+            "/docs": "True",
+            "/docs/edit": "False",
+            "music": "False",
+            "/console": "False"
+        }
+    }
 }

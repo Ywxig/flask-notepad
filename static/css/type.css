@@ -1,0 +1,18 @@
+.type{
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 20px;
+}
+
+#text {
+    background-color: #5c4a00; /* светло-бежевый */
+    border: 1px solid #e6d8af;                  /* мягкий золотистый */
+    color: #e6d8af;                             /* тёмно-золотистый текст */
+}
+
+#markdown {
+    background-color: #3399ff57; /* светло-голубой */
+    border: 1px solid #3399ff;                 /* яркий синий */
+    color: #3399ff;                            /* насыщенный тёмно-синий текст */
+}
